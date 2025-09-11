@@ -21,3 +21,11 @@ A Disease Prediction System using Machine Learning analyzes patient data such as
 
 - **Utilities**  
   - `tqdm` (progress bars), `ipython`, `jupyterlab` (interactive development)  
+
+- **Data Preprocessing**
+- **Categorical Feature Encoding**
+  - `pandas` → loading CSV files and handling tabular data  
+  - `sklearn.preprocessing.LabelEncoder` → converting ordinal categorical variables to integer labels  
+  - `sklearn.preprocessing.OneHotEncoder` or `pd.get_dummies` → transforming nominal categorical variables into one-hot encoded vectors  
+  - Encoded datasets saved as new CSV files (e.g., `dataset_encoded.csv`, `Training_encoded.csv`)  
+  - Ensures all categorical features are represented as numerical data compatible with machine learning models
