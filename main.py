@@ -13,19 +13,6 @@ df_train = pd.read_csv(train_path)
 df_test = pd.read_csv(test_path)
 
 print("✅ Training & Testing Datasets Loaded Successfully!\n")
-print("📌 Training Dataset Review")
-print("Shape:", df_train.shape, "\n")
-print("Columns:\n", df_train.columns.tolist(), "\n")
-print("Data Types:\n", df_train.dtypes, "\n")
-print("First 5 rows:\n", df_train.head(), "\n")
-print("Missing values:\n", df_train.isnull().sum(), "\n")
-
-print("\n📌 Testing Dataset Review")
-print("Shape:", df_test.shape, "\n")
-print("Columns:\n", df_test.columns.tolist(), "\n")
-print("Data Types:\n", df_test.dtypes, "\n")
-print("First 5 rows:\n", df_test.head(), "\n")
-print("Missing values:\n", df_test.isnull().sum(), "\n")
 
 # ======================
 # 2. Load Extra Datasets
@@ -41,10 +28,6 @@ df_precaution = pd.read_csv(precaution_path)
 df_severity = pd.read_csv(severity_path)
 
 print("\n✅ Extra Datasets Loaded Successfully!\n")
-print("📌 Main Dataset Review (dataset.csv)")
-print("Shape:", df_main.shape, "\n")
-print("Columns:\n", df_main.columns.tolist(), "\n")
-print("First 5 rows:\n", df_main.head(), "\n")
 
 # ======================
 # 3. Clean Function
@@ -119,17 +102,53 @@ plt.ylabel("Symptom")
 plt.show()
 
 # ======================
-# 7. Encode Categorical for Correlation Heatmap
+# 7. Encode Categorical Columns
 # ======================
-df_encoded = df_main.copy()
 le = LabelEncoder()
 
-for col in df_encoded.columns:
-    df_encoded[col] = le.fit_transform(df_encoded[col].astype(str))
+# Encode Training & Testing target
+y_train_encoded = le.fit_transform(y_train)
+y_test_encoded = le.transform(y_test)
 
-plt.figure(figsize=(12,8))
-sns.heatmap(df_encoded.corr(), cmap="coolwarm")
-plt.title("Correlation Heatmap (Label Encoded Features)")
-plt.show()
+# Save mapping
+disease_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
+print("✅ Label Encoded Target Mapping:\n", disease_mapping, "\n")
 
-print("\n✅ EDA + Encoding Completed Successfully!\n")
+# Encode df_main (Disease + Symptoms)
+df_main_encoded = df_main.copy()
+symptom_cols_main = [c for c in df_main.columns if c != "Disease"]
+
+# One-hot encode symptom columns
+df_main_encoded = pd.get_dummies(df_main_encoded, columns=symptom_cols_main)
+
+# Label encode disease
+df_main_encoded["Disease"] = le.fit_transform(df_main["Disease"])
+
+# ======================
+# 8. Severity Mapping
+# ======================
+severity_map = dict(zip(df_severity["Symptom"], df_severity["weight"]))
+
+df_train_severity = df_train.copy()
+for symptom in symptom_cols:
+    if symptom in severity_map:
+        df_train_severity[symptom] = df_train_severity[symptom] * severity_map.get(symptom, 0)
+
+df_test_severity = df_test.copy()
+for symptom in symptom_cols:
+    if symptom in severity_map:
+        df_test_severity[symptom] = df_test_severity[symptom] * severity_map.get(symptom, 0)
+
+# ======================
+# 9. Save Encoded Versions
+# ======================
+pd.DataFrame(X_train_scaled).to_csv("X_train_scaled.csv", index=False)
+pd.DataFrame(X_test_scaled).to_csv("X_test_scaled.csv", index=False)
+pd.DataFrame(y_train_encoded).to_csv("y_train_encoded.csv", index=False)
+pd.DataFrame(y_test_encoded).to_csv("y_test_encoded.csv", index=False)
+
+df_main_encoded.to_csv("dataset_encoded.csv", index=False)
+df_train_severity.to_csv("Training_severity.csv", index=False)
+df_test_severity.to_csv("Testing_severity.csv", index=False)
+
+print("\n✅ EDA + Encoding + Severity Mapping Completed Successfully!\n")
