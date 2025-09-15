@@ -12,7 +12,7 @@ test_path = "Testing.csv"
 df_train = pd.read_csv(train_path)
 df_test = pd.read_csv(test_path)
 
-print("✅ Training & Testing Datasets Loaded Successfully!\n")
+print(" Training & Testing Datasets Loaded Successfully!\n")
 
 # ======================
 # 2. Load Extra Datasets
@@ -27,7 +27,7 @@ df_desc = pd.read_csv(desc_path)
 df_precaution = pd.read_csv(precaution_path)
 df_severity = pd.read_csv(severity_path)
 
-print("\n✅ Extra Datasets Loaded Successfully!\n")
+print("\n Extra Datasets Loaded Successfully!\n")
 
 # ======================
 # 3. Clean Function
@@ -50,7 +50,7 @@ df_desc = clean_dataset(df_desc)
 df_precaution = clean_dataset(df_precaution)
 df_severity = clean_dataset(df_severity)
 
-print("\n✅ Cleaned All Datasets!\n")
+print("\n Cleaned All Datasets!\n")
 
 # Save cleaned versions
 df_train.to_csv("Training_cleaned.csv", index=False)
@@ -67,7 +67,7 @@ print("💾 All cleaned datasets saved!\n")
 # ======================
 target_column = "prognosis"
 if target_column not in df_train.columns:
-    raise ValueError(f"❌ Target column '{target_column}' not found! Available columns: {df_train.columns.tolist()}")
+    raise ValueError(f" Target column '{target_column}' not found! Available columns: {df_train.columns.tolist()}")
 
 X_train = df_train.drop(columns=[target_column])
 y_train = df_train[target_column]
@@ -81,8 +81,8 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-print("✅ Feature Scaling Completed!\n")
-print("📌 Final Shapes after Cleaning, Saving & Scaling:")
+print(" Feature Scaling Completed!\n")
+print(" Final Shapes after Cleaning, Saving & Scaling:")
 print("X_train:", X_train_scaled.shape)
 print("y_train:", y_train.shape)
 print("X_test:", X_test_scaled.shape)
@@ -112,7 +112,7 @@ y_test_encoded = le.transform(y_test)
 
 # Save mapping
 disease_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
-print("✅ Label Encoded Target Mapping:\n", disease_mapping, "\n")
+print(" Label Encoded Target Mapping:\n", disease_mapping, "\n")
 
 # Encode df_main (Disease + Symptoms)
 df_main_encoded = df_main.copy()
@@ -151,4 +151,4 @@ df_main_encoded.to_csv("dataset_encoded.csv", index=False)
 df_train_severity.to_csv("Training_severity.csv", index=False)
 df_test_severity.to_csv("Testing_severity.csv", index=False)
 
-print("\n✅ EDA + Encoding + Severity Mapping Completed Successfully!\n")
+print("\n EDA + Encoding + Severity Mapping Completed Successfully!\n")
