@@ -12,7 +12,11 @@ test_path = "Testing.csv"
 df_train = pd.read_csv(train_path)
 df_test = pd.read_csv(test_path)
 
+<<<<<<< HEAD
 print(" Training & Testing Datasets Loaded Successfully!\n")
+=======
+print("Training & Testing Datasets Loaded Successfully!\n")
+>>>>>>> 1fe0179 (baseline)
 
 # ======================
 # 2. Load Extra Datasets
@@ -27,7 +31,11 @@ df_desc = pd.read_csv(desc_path)
 df_precaution = pd.read_csv(precaution_path)
 df_severity = pd.read_csv(severity_path)
 
+<<<<<<< HEAD
 print("\n Extra Datasets Loaded Successfully!\n")
+=======
+print("\nExtra Datasets Loaded Successfully!\n")
+>>>>>>> 1fe0179 (baseline)
 
 # ======================
 # 3. Clean Function
@@ -50,7 +58,11 @@ df_desc = clean_dataset(df_desc)
 df_precaution = clean_dataset(df_precaution)
 df_severity = clean_dataset(df_severity)
 
+<<<<<<< HEAD
 print("\n Cleaned All Datasets!\n")
+=======
+print("\nCleaned All Datasets!\n")
+>>>>>>> 1fe0179 (baseline)
 
 # Save cleaned versions
 df_train.to_csv("Training_cleaned.csv", index=False)
@@ -60,14 +72,18 @@ df_desc.to_csv("symptom_Description_cleaned.csv", index=False)
 df_precaution.to_csv("symptom_precaution_cleaned.csv", index=False)
 df_severity.to_csv("Symptom-severity_cleaned.csv", index=False)
 
-print("💾 All cleaned datasets saved!\n")
+print("All cleaned datasets saved!\n")
 
 # ======================
 # 4. Split Features & Target
 # ======================
 target_column = "prognosis"
 if target_column not in df_train.columns:
+<<<<<<< HEAD
     raise ValueError(f" Target column '{target_column}' not found! Available columns: {df_train.columns.tolist()}")
+=======
+    raise ValueError(f"Target column '{target_column}' not found! Available columns: {df_train.columns.tolist()}")
+>>>>>>> 1fe0179 (baseline)
 
 X_train = df_train.drop(columns=[target_column])
 y_train = df_train[target_column]
@@ -81,8 +97,13 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
+<<<<<<< HEAD
 print(" Feature Scaling Completed!\n")
 print(" Final Shapes after Cleaning, Saving & Scaling:")
+=======
+print("Feature Scaling Completed!\n")
+print("Final Shapes after Cleaning, Saving & Scaling:")
+>>>>>>> 1fe0179 (baseline)
 print("X_train:", X_train_scaled.shape)
 print("y_train:", y_train.shape)
 print("X_test:", X_test_scaled.shape)
@@ -112,7 +133,11 @@ y_test_encoded = le.transform(y_test)
 
 # Save mapping
 disease_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
+<<<<<<< HEAD
 print(" Label Encoded Target Mapping:\n", disease_mapping, "\n")
+=======
+print("Label Encoded Target Mapping:\n", disease_mapping, "\n")
+>>>>>>> 1fe0179 (baseline)
 
 # Encode df_main (Disease + Symptoms)
 df_main_encoded = df_main.copy()
@@ -151,4 +176,8 @@ df_main_encoded.to_csv("dataset_encoded.csv", index=False)
 df_train_severity.to_csv("Training_severity.csv", index=False)
 df_test_severity.to_csv("Testing_severity.csv", index=False)
 
+<<<<<<< HEAD
 print("\n EDA + Encoding + Severity Mapping Completed Successfully!\n")
+=======
+print("\nEDA + Encoding + Severity Mapping Completed Successfully!\n")
+>>>>>>> 1fe0179 (baseline)
