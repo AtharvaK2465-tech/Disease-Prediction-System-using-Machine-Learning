@@ -30,19 +30,16 @@ A Disease Prediction System using Machine Learning analyzes patient data such as
   - Encoded datasets saved as new CSV files (e.g., `dataset_encoded.csv`, `Training_encoded.csv`)  
   - Ensures all categorical features are represented as numerical data compatible with machine learning models
 
-## Disease Prediction Models
+- **Model Justification**
 
-- **Logistic Regression**
-  - Simple, interpretable model that estimates disease probability using linear relationships.
-  - Fast to train and provides transparent results, useful for clinical decision-making.
-  - Best suited when features have approximately linear influence on outcomes.
+- Although all models performed equally well, Random Forest was selected as the final model due to the following reasons:
 
-- **Support Vector Machine**
-  - Effective in high-dimensional spaces and models non-linear boundaries with kernels.
-  - Often yields strong accuracy but requires careful tuning and is less interpretable.
-  - Suitable for complex symptom datasets where capturing intricate patterns is key.
+- Robustness & Stability – Reduces variance by averaging multiple decision trees, minimizing overfitting.
 
-- **Random Forest**
-  - Ensemble of decision trees that handles non-linear relationships and mixed feature types.
-  - Robust to noise and overfitting, provides feature importance insights.
-  - Ideal for heterogeneous, noisy healthcare data requiring high predictive power.
+- Feature Importance – Provides insights into which symptoms contribute most to predictions.
+
+- Generalization Ability – Tends to perform reliably on unseen data, critical for healthcare applications.
+
+- Scalability – Efficiently handles large datasets with mixed data types.
+
+- Proven Effectiveness – Widely adopted in medical prediction tasks for its balance of accuracy and interpretability.
