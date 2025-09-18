@@ -1,19 +1,3 @@
-"""
-project_pipeline.py
-
-Full ML pipeline:
-- load & review dataset
-- clean NaNs (drop all-NaN cols, impute rest)
-- encode categorical features
-- scale / normalize
-- EDA plots (saved to ./outputs/eda/)
-- baseline + compare models (DecisionTree, LogisticRegression, SVM, RandomForest, XGBoost)
-- cross-validation
-- hyperparameter tuning (RandomizedSearchCV + GridSearchCV)
-- retrain best model and export predictions
-- save models with joblib
-"""
-
 import os
 import sys
 import warnings

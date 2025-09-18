@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 # Load best model
-model_path = "outputs/models/best_model.joblib"   # ✅ adjust path if needed
+model_path = "outputs/models/best_model.joblib"   # adjust path if needed
 print(f"Using model file: {model_path}")
 model = joblib.load(model_path)
 
