@@ -30,6 +30,20 @@ A Disease Prediction System using Machine Learning analyzes patient data such as
   - Encoded datasets saved as new CSV files (e.g., `dataset_encoded.csv`, `Training_encoded.csv`)  
   - Ensures all categorical features are represented as numerical data compatible with machine learning models
 
+- **Experimental Results**
+
+All models achieved perfect evaluation metrics on the dataset:
+
+- RandomForest: {'accuracy': 1.0, 'precision': 1.0, 'recall': 1.0, 'f1': 1.0, 'roc_auc': 1.0}
+
+- DecisionTree: {'accuracy': 1.0, 'precision': 1.0, 'recall': 1.0, 'f1': 1.0, 'roc_auc': 1.0}
+
+- LogisticRegression: {'accuracy': 1.0, 'precision': 1.0, 'recall': 1.0, 'f1': 1.0, 'roc_auc': 1.0}
+
+- SVM: {'accuracy': 1.0, 'precision': 1.0, 'recall': 1.0, 'f1': 1.0, 'roc_auc': 1.0}
+
+- XGBoost: {'accuracy': 1.0, 'precision': 1.0, 'recall': 1.0, 'f1': 1.0, 'roc_auc': 1.0}
+
 - **Model Justification**
 
 - Although all models performed equally well, Random Forest was selected as the final model due to the following reasons:
