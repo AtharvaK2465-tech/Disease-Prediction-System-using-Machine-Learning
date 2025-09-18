@@ -25,6 +25,8 @@ from sklearn.metrics import (
     recall_score,
     f1_score,
     roc_auc_score,
+    confusion_matrix,
+    ConfusionMatrixDisplay,
 )
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
@@ -48,14 +50,20 @@ CONFIG = {
     "EDA_DIR": "outputs/eda",
     "MODEL_DIR": "outputs/models",
     "PRED_DIR": "outputs/predictions",
+    "CM_DIR": "outputs/confusion_matrices",
     "CV_FOLDS": 5,
 }
 # -----------------------
 
 # Create output folders
-for d in (CONFIG["OUTPUT_DIR"], CONFIG["EDA_DIR"], CONFIG["MODEL_DIR"], CONFIG["PRED_DIR"]):
+for d in (
+    CONFIG["OUTPUT_DIR"],
+    CONFIG["EDA_DIR"],
+    CONFIG["MODEL_DIR"],
+    CONFIG["PRED_DIR"],
+    CONFIG["CM_DIR"],
+):
     os.makedirs(d, exist_ok=True)
-
 
 # -----------------------
 # Utils
@@ -163,6 +171,18 @@ def evaluate_model(y_true, y_pred, y_proba=None) -> Dict[str, float]:
 # -----------------------
 # Baseline & Comparison
 # -----------------------
+def plot_confusion_matrix(y_true, y_pred, class_names, model_name):
+    cm = confusion_matrix(y_true, y_pred)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=class_names)
+    fig, ax = plt.subplots(figsize=(10, 8))
+    disp.plot(ax=ax, cmap="Blues", values_format="d", xticks_rotation=45)
+    plt.title(f"Confusion Matrix - {model_name}")
+    plt.tight_layout()
+    save_path = os.path.join(CONFIG["CM_DIR"], f"confusion_matrix_{model_name}.png")
+    plt.savefig(save_path)
+    plt.close()
+    print(f"[PLOT] Confusion matrix saved: {save_path}")
+
 def baseline_and_compare(df, target, preprocessor):
     X = df.drop(columns=[target])
     y = df[target]
@@ -177,10 +197,10 @@ def baseline_and_compare(df, target, preprocessor):
     )
 
     models = {
+        "RandomForest": RandomForestClassifier(n_estimators=100, random_state=CONFIG["RANDOM_STATE"]),
         "DecisionTree": DecisionTreeClassifier(random_state=CONFIG["RANDOM_STATE"]),
         "LogisticRegression": LogisticRegression(max_iter=1000, random_state=CONFIG["RANDOM_STATE"]),
         "SVM": SVC(probability=True, random_state=CONFIG["RANDOM_STATE"]),
-        "RandomForest": RandomForestClassifier(n_estimators=100, random_state=CONFIG["RANDOM_STATE"]),
         "XGBoost": XGBClassifier(use_label_encoder=False, eval_metric="mlogloss", random_state=CONFIG["RANDOM_STATE"]),
     }
 
@@ -198,6 +218,8 @@ def baseline_and_compare(df, target, preprocessor):
 
         pipe.fit(X_train, y_train)
         y_pred = pipe.predict(X_test)
+        # Confusion Matrix Plot
+        plot_confusion_matrix(y_test, y_pred, le.classes_, name)
 
         try:
             y_proba = pipe.predict_proba(X_test)

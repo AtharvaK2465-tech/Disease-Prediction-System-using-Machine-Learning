@@ -1,6 +1,6 @@
 model,cv_mean,cv_std,accuracy,precision,recall,f1,roc_auc
+RandomForest,1.0,0.0,1.0,1.0,1.0,1.0,1.0
 DecisionTree,1.0,0.0,1.0,1.0,1.0,1.0,1.0
 LogisticRegression,1.0,0.0,1.0,1.0,1.0,1.0,1.0
-RandomForest,1.0,0.0,1.0,1.0,1.0,1.0,1.0
 XGBoost,1.0,0.0,1.0,1.0,1.0,1.0,1.0
 SVM,0.9989838040751037,0.0005080983462541611,1.0,1.0,1.0,1.0,1.0
