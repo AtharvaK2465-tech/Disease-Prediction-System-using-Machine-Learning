@@ -1,29 +1,21 @@
 from flask import Flask, request, jsonify
 
-# Initialize Flask app
 app = Flask(__name__)
 
-# Base route
-@app.route("/")
+@app.route('/')
 def home():
-    return {"message": "Flask backend is running successfully!"}
+    return "✅ Flask Backend is Running!"
 
-# Predict route (dummy response for now)
-@app.route("/predict", methods=["POST"])
+# Define /predict endpoint (dummy version)
+@app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()
-
-    # Extract symptoms from request
     symptoms = data.get("symptoms", [])
+    # For now, return dummy response
+    return jsonify({
+        "received_symptoms": symptoms,
+        "prediction": "dummy_disease"
+    })
 
-    # Dummy prediction response
-    response = {
-        "input_symptoms": symptoms,
-        "predicted_disease": "Dummy Disease",
-        "confidence": "N/A (dummy response)"
-    }
-    return jsonify(response)
-
-# Run the server
 if __name__ == "__main__":
     app.run(debug=True)

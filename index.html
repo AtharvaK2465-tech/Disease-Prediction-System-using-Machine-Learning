@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Prediction - Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Health Prediction System</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="results.html">Results</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Enter Your Symptoms</h2>
+    <form id="symptomForm">
+      {% for symptom in symptoms %}
+  <label>
+    {{ symptom|capitalize }}:
+    <input type="checkbox" name="{{ symptom }}" value="1">
+  </label>
+{% endfor %}
+      <!-- Add more symptoms as needed -->
+
+      <button type="submit">Predict</button>
+    </form>
+
+    <div id="predictionResult"></div>
+  </main>
+
+  <script>
+    document.getElementById("symptomForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      // Collect form data
+      const formData = new FormData(e.target);
+      let symptoms = {};
+      ["fever", "cough", "nausea"].forEach(symptom => {
+        symptoms[symptom] = formData.has(symptom) ? 1 : 0;
+      });
+
+      // Call backend
+      const response = await fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(symptoms)
+      });
+
+      const result = await response.json();
+      document.getElementById("predictionResult").innerText =
+        result.prediction ? "Predicted Disease: " + result.prediction : "Error: " + result.error;
+    });
+  </script>
+</body>
+</html>
