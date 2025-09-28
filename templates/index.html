@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disease Prediction System - Home</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Left Navigation Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <h1><i class="fas fa-stethoscope medical-icon"></i>Health AI</h1>
+      <p class="subtitle">Disease Prediction System</p>
+    </div>
+    <div class="sidebar-nav">
+      <a href="index.html" class="nav-item active">
+        <i class="fas fa-home"></i>Home
+      </a>
+      <a href="about.html" class="nav-item">
+        <i class="fas fa-info-circle"></i>About
+      </a>
+      <a href="results.html" class="nav-item">
+        <i class="fas fa-chart-line"></i>Results
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <header class="header">
+      <h1>Disease Prediction System</h1>
+      <p class="breadcrumb">Home > Symptom Analysis</p>
+    </header>
+
+    <main>
+      <div class="content-card fade-in">
+        <h2><i class="fas fa-clipboard-list medical-icon"></i>Enter Your Symptoms</h2>
+        <form id="symptomForm">
+          <h3><i class="fas fa-list-check medical-icon"></i>Select Common Symptoms</h3>
+          <div class="symptoms-grid">
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="fever" value="1">
+                Fever
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="cough" value="1">
+                Cough
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="nausea" value="1">
+                Nausea
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="headache" value="1">
+                Headache
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="fatigue" value="1">
+                Fatigue
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="chest_pain" value="1">
+                Chest Pain
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="shortness_breath" value="1">
+                Shortness of Breath
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="muscle_pain" value="1">
+                Muscle Pain
+              </label>
+            </div>
+          </div>
+
+          <div class="divider">
+            <span>OR</span>
+          </div>
+
+          <h3><i class="fas fa-keyboard medical-icon"></i>Enter Symptoms Manually</h3>
+          <div class="form-group">
+            <label for="manualSymptoms">Describe your symptoms:</label>
+            <textarea id="manualSymptoms" name="manual_symptoms" rows="4" placeholder="Enter your symptoms separated by commas (e.g., fever, headache, fatigue)"></textarea>
+          </div>
+
+          <button type="submit">
+            <i class="fas fa-search"></i> Analyze Symptoms
+          </button>
+        </form>
+
+        <div id="predictionResult"></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("symptomForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      // Collect checkbox symptoms
+      const formData = new FormData(e.target);
+      let symptoms = {};
+      const checkboxSymptoms = ["fever", "cough", "nausea", "headache", "fatigue", "chest_pain", "shortness_breath", "muscle_pain"];
+      
+      checkboxSymptoms.forEach(symptom => {
+        symptoms[symptom] = formData.has(symptom) ? 1 : 0;
+      });
+
+      // Collect manual symptoms
+      const manualSymptoms = formData.get("manual_symptoms");
+      if (manualSymptoms && manualSymptoms.trim()) {
+        // Parse manual symptoms and add to symptoms object
+        const manualSymptomList = manualSymptoms.split(',').map(s => s.trim().toLowerCase().replace(/\s+/g, '_'));
+        manualSymptomList.forEach(symptom => {
+          if (symptom) {
+            symptoms[symptom] = 1;
+          }
+        });
+      }
+
+      // Show loading state
+      const resultDiv = document.getElementById("predictionResult");
+      resultDiv.innerHTML = '<div class="status-warning"><i class="fas fa-spinner fa-spin"></i> Analyzing symptoms...</div>';
+
+      try {
+        // Call backend
+        const response = await fetch("http://127.0.0.1:5000/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(symptoms)
+        });
+
+        const result = await response.json();
+        
+        if (result.prediction) {
+          resultDiv.innerHTML = `<div class="status-success"><i class="fas fa-check-circle"></i> Predicted Disease: <strong>${result.prediction}</strong></div>`;
+          // Store result for results page
+          localStorage.setItem("prediction", result.prediction);
+        } else {
+          resultDiv.innerHTML = `<div class="status-error"><i class="fas fa-exclamation-triangle"></i> Error: ${result.error || 'Unable to make prediction'}</div>`;
+        }
+      } catch (error) {
+        resultDiv.innerHTML = `<div class="status-error"><i class="fas fa-exclamation-triangle"></i> Connection Error: Please check if the backend server is running</div>`;
+      }
+    });
+
+    // Add smooth scrolling and animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add fade-in animation to content cards
+      const cards = document.querySelectorAll('.content-card');
+      cards.forEach(card => {
+        card.classList.add('fade-in');
+      });
+
+      // Add hover effects to navigation items
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateX(5px)';
+        });
+        item.addEventListener('mouseleave', function() {
+          if (!this.classList.contains('active')) {
+            this.style.transform = 'translateX(0)';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
