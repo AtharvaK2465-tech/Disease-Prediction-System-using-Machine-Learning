@@ -4,28 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About - Disease Prediction System</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
   <!-- Left Navigation Sidebar -->
-  <nav class="sidebar">
-    <div class="sidebar-header">
-      <h1><i class="fas fa-stethoscope medical-icon"></i>Health AI</h1>
-      <p class="subtitle">Disease Prediction System</p>
-    </div>
-    <div class="sidebar-nav">
-      <a href="index.html" class="nav-item">
-        <i class="fas fa-home"></i>Home
-      </a>
-      <a href="about.html" class="nav-item active">
-        <i class="fas fa-info-circle"></i>About
-      </a>
-      <a href="results.html" class="nav-item">
-        <i class="fas fa-chart-line"></i>Results
-      </a>
-    </div>
-  </nav>
+ <nav class="sidebar">
+  <div class="sidebar-header">
+    <h1><i class="fas fa-stethoscope medical-icon"></i>Health AI</h1>
+    <p class="subtitle">Disease Prediction System</p>
+  </div>
+  <div class="sidebar-nav">
+    <a href="{{ url_for('home') }}" class="nav-item"><i class="fas fa-home"></i> Home</a>
+    <a href="{{ url_for('about') }}" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
+    <a href="{{ url_for('results') }}" class="nav-item"><i class="fas fa-chart-line"></i> Results</a>
+  </div>
+</nav>
 
   <!-- Main Content Area -->
   <div class="main-content">

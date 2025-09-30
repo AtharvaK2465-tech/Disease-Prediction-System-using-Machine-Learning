@@ -53,6 +53,14 @@ else:
 def home():
     return render_template("index.html")
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/results")
+def results():
+    return render_template("results.html")
+ 
 @app.route("/symptoms", methods=["GET"])
 def get_symptoms():
     if not feature_cols:
