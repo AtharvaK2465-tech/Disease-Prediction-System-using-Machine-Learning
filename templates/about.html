@@ -15,9 +15,15 @@
     <p class="subtitle">Disease Prediction System</p>
   </div>
   <div class="sidebar-nav">
-    <a href="{{ url_for('home') }}" class="nav-item"><i class="fas fa-home"></i> Home</a>
-    <a href="{{ url_for('about') }}" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
-    <a href="{{ url_for('results') }}" class="nav-item"><i class="fas fa-chart-line"></i> Results</a>
+  <a href="{{ url_for('home') }}" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+  <i class="fas fa-home"></i> Home
+</a>
+<a href="{{ url_for('about') }}" class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
+  <i class="fas fa-info-circle"></i> About
+</a>
+<a href="{{ url_for('results') }}" class="nav-item {% if request.endpoint == 'results' %}active{% endif %}">
+  <i class="fas fa-chart-line"></i> Results
+</a>
   </div>
 </nav>
 

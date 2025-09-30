@@ -60,6 +60,13 @@ def about():
 @app.route("/results")
 def results():
     return render_template("results.html")
+
+@app.route("/<page>")
+def static_pages(page):
+    try:
+        return render_template(f"{page}.html")
+    except:
+        return "Page not found", 404
  
 @app.route("/symptoms", methods=["GET"])
 def get_symptoms():
