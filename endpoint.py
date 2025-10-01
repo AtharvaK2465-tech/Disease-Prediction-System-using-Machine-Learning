@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "✅ Flask Backend is Running!"
+    return " Flask Backend is Running!"
 
 # Define /predict endpoint (dummy version)
 @app.route('/predict', methods=['POST'])
