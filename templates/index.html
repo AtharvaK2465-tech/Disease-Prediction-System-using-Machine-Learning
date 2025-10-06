@@ -18,6 +18,10 @@
     <a href="{{ url_for('home') }}" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
   <i class="fas fa-home"></i> Home
 </a>
+<a href="{{ url_for('dashboard') }}" 
+   class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+  <i class="fas fa-tachometer-alt"></i> Dashboard
+</a>
 <a href="{{ url_for('about') }}" class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
   <i class="fas fa-info-circle"></i> About
 </a>
@@ -31,7 +35,6 @@
       <h1>Disease Prediction System</h1>
       <p class="breadcrumb">Home &gt; Symptom Analysis</p>
     </header>
-
     <main>
       <div class="content-card fade-in">
         <h2><i class="fas fa-clipboard-list medical-icon"></i>Enter Your Symptoms</h2>

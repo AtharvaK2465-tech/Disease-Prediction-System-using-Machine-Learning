@@ -53,6 +53,10 @@ else:
 def home():
     return render_template("index.html")
 
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
 @app.route("/about")
 def about():
     return render_template("about.html")
