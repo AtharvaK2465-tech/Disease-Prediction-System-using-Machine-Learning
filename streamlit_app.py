@@ -7,12 +7,12 @@ API_BASE = "http://127.0.0.1:5000"
 
 st.set_page_config(page_title="Disease Prediction System", layout="wide")
 
-st.title("🩺 Disease Prediction Dashboard")
+st.title("Disease Prediction Dashboard")
 st.write("Select symptoms and get real-time predictions of possible diseases.")
 
 # Sidebar
 with st.sidebar:
-    st.header("ℹ️ About")
+    st.header("About")
     st.info("This dashboard is built with Streamlit and connected to a Flask backend "
             "for real-time ML disease prediction.")
 
@@ -23,10 +23,10 @@ try:
         symptoms_list = resp.json().get("symptoms", [])
     else:
         symptoms_list = []
-        st.error("⚠️ Failed to fetch symptoms from API.")
+        st.error(" Failed to fetch symptoms from API.")
 except Exception as e:
     symptoms_list = []
-    st.error(f"⚠️ Could not connect to Flask API: {e}")
+    st.error(f" Could not connect to Flask API: {e}")
 
 # --- Step 2: Multi-select for symptoms ---
 selected_symptoms = st.multiselect(
@@ -35,7 +35,7 @@ selected_symptoms = st.multiselect(
 )
 
 # --- Step 3: Predict button ---
-if st.button("🔮 Predict"):
+if st.button(" Predict"):
     if not selected_symptoms:
         st.warning("Please select at least one symptom.")
     else:
