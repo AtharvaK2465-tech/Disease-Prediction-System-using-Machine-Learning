@@ -1,0 +1,138 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Disease Prediction System - Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+ <nav class="sidebar">
+  <div class="sidebar-header">
+    <h1><i class="fas fa-stethoscope medical-icon"></i>Health AI</h1>
+    <p class="subtitle">Disease Prediction System</p>
+  </div>
+  <div class="sidebar-nav">
+    <a href="{{ url_for('home') }}" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+  <i class="fas fa-home"></i> Home
+</a>
+<a href="{{ url_for('dashboard') }}" 
+   class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+  <i class="fas fa-tachometer-alt"></i> Dashboard
+</a>
+<a href="{{ url_for('about') }}" class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
+  <i class="fas fa-info-circle"></i> About
+</a>
+<a href="{{ url_for('results') }}" class="nav-item {% if request.endpoint == 'results' %}active{% endif %}">
+  <i class="fas fa-chart-line"></i> Results
+</a>
+  </div>
+</nav>
+  <div class="main-content">
+    <header class="header">
+      <h1>Disease Prediction System</h1>
+      <p class="breadcrumb">Home &gt; Symptom Analysis</p>
+    </header>
+    <main>
+      <div class="content-card fade-in">
+        <h2><i class="fas fa-clipboard-list medical-icon"></i>Enter Your Symptoms</h2>
+
+        <form id="symptomForm">
+          <h3><i class="fas fa-list-check medical-icon"></i>Select Symptoms</h3>
+          <div id="symptomsGrid" class="symptoms-grid"></div>
+
+          <div class="divider"><span>OR</span></div>
+
+          <h3><i class="fas fa-keyboard medical-icon"></i>Enter Symptoms Manually</h3>
+          <div class="form-group">
+            <label for="manualSymptoms">Describe your symptoms:</label>
+            <textarea id="manualSymptoms" name="manual_symptoms" rows="4"
+              placeholder="Enter symptoms separated by commas (e.g., fever, headache, fatigue)"></textarea>
+          </div>
+
+          <button type="submit"><i class="fas fa-search"></i> Analyze Symptoms</button>
+        </form>
+
+        <div id="predictionResult"></div>
+      </div>
+    </main>
+  </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", async function() {
+  const symptomsGrid = document.getElementById("symptomsGrid");
+  const resultDiv = document.getElementById("predictionResult");
+
+  // Load symptoms
+  try {
+    console.log("[client] requesting /symptoms ...");
+    const response = await fetch("/symptoms");
+    console.log("[client] /symptoms status:", response.status, response.statusText);
+    const data = await response.json();
+    console.log("[client] /symptoms payload:", data);
+
+    if (response.ok && data.symptoms && data.symptoms.length) {
+      data.symptoms.forEach(symptom => {
+        const formGroup = document.createElement("div");
+        formGroup.classList.add("form-group");
+        formGroup.innerHTML = `
+          <label>
+            <input type="checkbox" name="${symptom}" value="1">
+            ${symptom.replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase())}
+          </label>
+        `;
+        symptomsGrid.appendChild(formGroup);
+      });
+    } else {
+      symptomsGrid.innerHTML = `<div class="status-error">Unable to load symptoms from server: ${data.error || response.statusText}</div>`;
+    }
+  } catch (err) {
+    console.error("[client] error fetching /symptoms:", err);
+    symptomsGrid.innerHTML = `<div class="status-error">Unable to load symptoms from server (network). Open DevTools console for details.</div>`;
+  }
+
+  // Handle form submit
+  document.getElementById("symptomForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    let symptoms = {};
+    for (let [key, value] of formData.entries()) {
+      if (key !== "manual_symptoms") symptoms[key] = 1;
+    }
+
+    const manual = formData.get("manual_symptoms");
+    if (manual && manual.trim()) {
+      manual.split(",").map(s => s.trim().toLowerCase().replace(/\s+/g,'_')).forEach(s => { if (s) symptoms[s] = 1; });
+    }
+
+    resultDiv.innerHTML = '<div class="status-warning"><i class="fas fa-spinner fa-spin"></i> Analyzing symptoms...</div>';
+
+    try {
+      console.log("[client] posting to /predict ->", symptoms);
+      const resp = await fetch("/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(symptoms)
+      });
+      console.log("[client] /predict status:", resp.status, resp.statusText);
+      const payload = await resp.json();
+      console.log("[client] /predict payload:", payload);
+
+      if (resp.ok && payload.prediction) {
+        resultDiv.innerHTML = `<div class="status-success"><i class="fas fa-check-circle"></i> Predicted Disease: <strong>${payload.prediction}</strong></div>`;
+        localStorage.setItem("prediction", payload.prediction);
+      } else {
+        resultDiv.innerHTML = `<div class="status-error">Prediction failed: ${payload.error || resp.statusText}</div>`;
+      }
+    } catch (err) {
+      console.error("[client] error calling /predict:", err);
+      resultDiv.innerHTML = `<div class="status-error">Connection error — check backend console.</div>`;
+    }
+  });
+});
+</script>
+</body>
+</html>

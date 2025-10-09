@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Disease Prediction System - Results</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #2c3e50;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    nav {
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: static;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav h1 {
+      font-size: 1.5em;
+      color: #e74c3c;
+    }
+
+    nav h1 i { margin-right: 10px; }
+
+    nav .nav-links a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav .nav-links a:hover { color: #e74c3c; }
+
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("../static/bg.jpg") center center / cover no-repeat fixed;
+      color: white;
+      padding: 300px 100px;
+      text-align: center;
+    }
+
+    .hero h1, .hero p { text-shadow: 2px 2px 8px rgba(0,0,0,0.7); }
+    .hero h1 { font-size: 4em; margin-bottom: 20px; }
+    .hero p { font-size: 1.5em; opacity: 0.9; margin-bottom: 40px; }
+
+    .btn {
+      padding: 15px 40px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary { background: #e74c3c; color: white; }
+    .btn-primary:hover {
+      background: #c0392b;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(231,76,60,0.3);
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+    .results-section {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 50px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .results-section h2 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .result-box {
+      margin-top: 20px;
+      padding: 30px;
+      border-radius: 10px;
+      font-size: 1.3em;
+      color: #155724;
+      background: #d4edda;
+      border-left: 5px solid #28a745;
+      display: inline-block;
+      min-width: 300px;
+    }
+
+    .back-btn {
+      margin-top: 40px;
+      display: inline-block;
+      text-decoration: none;
+      background: #667eea;
+      color: white;
+      padding: 15px 40px;
+      border-radius: 50px;
+      font-size: 1.1em;
+      transition: all 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #5a67d8;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background: #000000;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 50px;
+    }
+
+    @media (max-width:768px){
+      .hero h1 { font-size: 2em; }
+      .hero p { font-size: 1.2em; }
+      nav .container { flex-direction: column; gap: 15px; }
+      nav .nav-links { display: flex; gap: 15px; }
+      nav .nav-links a { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <h1><i class="fas fa-heartbeat"></i>Disease Prediction System</h1>
+      <div class="nav-links">
+            <a href="{{ url_for('home') }}" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+  <i class="fas fa-home"></i> Home
+</a>
+<a href="{{ url_for('dashboard') }}" 
+   class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+  <i class="fas fa-tachometer-alt"></i> Dashboard
+</a>
+<a href="{{ url_for('about') }}" class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
+  <i class="fas fa-info-circle"></i> About
+</a>
+<a href="{{ url_for('results') }}" class="nav-item {% if request.endpoint == 'results' %}active{% endif %}">
+  <i class="fas fa-chart-line"></i> Results
+</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Your Prediction Result</h1>
+    <p>View your disease prediction based on the symptoms you submitted</p>
+  </section>
+
+  <!-- Results Section -->
+  <section class="results-section">
+    <h2>Predicted Disease</h2>
+    <div id="predictionResult" class="result-box">
+      <i class="fas fa-spinner fa-spin"></i> Loading result...
+    </div>
+    <a href="index.html#predict" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Prediction</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Disease Prediction System. All rights reserved.</p>
+    <p style="margin-top: 10px; opacity: 0.8;">
+      <i class="fas fa-exclamation-triangle"></i> 
+      Disclaimer: Always consult healthcare professionals for accurate diagnosis.
+    </p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const resultDiv = document.getElementById("predictionResult");
+      const prediction = localStorage.getItem("prediction");
+      if(prediction){
+        resultDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${prediction}`;
+      } else {
+        resultDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> No prediction found. Please submit your symptoms first.`;
+      }
+    });
+  </script>
+</body>
+</html>

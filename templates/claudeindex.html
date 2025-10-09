@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Disease Prediction System - Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #2c3e50;
+      color: #333;
+      line-height: 1.6;
+    }
+
+.contact-section {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.contact-section h2 {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.contact-section p {
+  color: white;
+  margin-bottom: 40px;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contact-form,
+.contact-info {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  width: 400px;
+}
+
+.contact-form h3,
+.contact-info h3 {
+  color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  outline: none;
+  font-size: 15px;
+}
+
+.contact-form button {
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.contact-form button:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.contact-info ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.contact-info li {
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.contact-info i {
+  color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin-right: 10px;
+}
+
+.follow-us {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.social-icons a {
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: inline-block;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+    /* Navigation */
+    nav {
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: static;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav h1 {
+      font-size: 1.5em;
+      color: #e74c3c;
+    }
+
+    nav h1 i {
+      margin-right: 10px;
+    }
+
+    nav .nav-links a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav .nav-links a:hover {
+      color: #e74c3c;
+    }
+
+    /* Hero Section */
+.hero {
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../static/bg.jpg") center center / cover no-repeat fixed;
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+}
+.hero {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  padding: 350px 100px;
+  text-align: center;
+}
+
+
+    .hero h1 {
+      font-size: 5em;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.3em;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+
+.hero h1, .hero p {
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #c0392b;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+    }
+
+    .btn-secondary:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Feature Cards */
+    .features {
+      padding: 80px 20px;
+      background: white;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 60px;
+      color: #333;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    .feature-card i {
+      font-size: 3em;
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .feature-card p {
+      color: #666;
+      line-height: 1.8;
+    }
+
+    /* Prediction Section */
+    .prediction-section {
+      padding: 80px 20px;
+      background: #2c3e50;
+    }
+
+    .prediction-section h2 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 50px;
+      color: #ffffff;
+    }
+
+    .prediction-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+      padding: 50px;
+    }
+
+    .form-section h3 {
+      color: #667eea;
+      margin-bottom: 25px;
+      font-size: 1.5em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .symptoms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+      max-height: 350px;
+      overflow-y: auto;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+
+    .symptom-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .symptom-item:hover {
+      background: #e8f4f8;
+    }
+
+    .symptom-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-right: 10px;
+      cursor: pointer;
+      accent-color: #667eea;
+    }
+
+    .symptom-item label {
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 40px 0;
+      color: #999;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .divider span {
+      padding: 0 20px;
+      font-weight: 600;
+      font-size: 1.1em;
+    }
+
+    .form-group {
+      margin-bottom: 30px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      color: #555;
+      font-weight: 600;
+      font-size: 1.1em;
+    }
+
+    .form-group textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1em;
+      font-family: inherit;
+      transition: border-color 0.3s;
+      resize: vertical;
+    }
+
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .result-box {
+      margin-top: 30px;
+      padding: 30px;
+      border-radius: 10px;
+      display: none;
+      animation: slideIn 0.5s;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-box.success {
+      background: #d4edda;
+      border-left: 5px solid #28a745;
+      color: #155724;
+      display: block;
+    }
+
+    .result-box.error {
+      background: #f8d7da;
+      border-left: 5px solid #dc3545;
+      color: #721c24;
+      display: block;
+    }
+
+    .result-box.loading {
+      background: #fff3cd;
+      border-left: 5px solid #ffc107;
+      color: #856404;
+      display: block;
+    }
+
+    .result-box h4 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      padding: 80px 20px;
+      background: white;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .stat-card i {
+      font-size: 3.5em;
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+
+    .stat-card h3 {
+      font-size: 2.5em;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .stat-card p {
+      color: #666;
+      font-size: 1.1em;
+    }
+
+    /* Footer */
+    footer {
+      background: #000000;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .spinner {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2em;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .prediction-container {
+        padding: 30px 20px;
+      }
+
+      nav .container {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav .nav-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      nav .nav-links a {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <h1><i class="fas fa-heartbeat"></i>Disease Prediction System</h1>
+      <div class="nav-links">
+            <a href="{{ url_for('home') }}" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+  <i class="fas fa-home"></i> Home
+</a>
+<a href="{{ url_for('dashboard') }}" 
+   class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+  <i class="fas fa-tachometer-alt"></i> Dashboard
+</a>
+<a href="{{ url_for('about') }}" class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
+  <i class="fas fa-info-circle"></i> About
+</a>
+<a href="{{ url_for('results') }}" class="nav-item {% if request.endpoint == 'results' %}active{% endif %}">
+  <i class="fas fa-chart-line"></i> Results
+</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <h1>Predict Your Disease Risk</h1>
+    <p>Prevention is better than cure - Get AI-powered health predictions</p>
+    <div class="hero-buttons">
+      <a href="#predict" class="btn btn-primary">Check Now</a>
+      <a href="#features" class="btn btn-secondary">See Features</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <h2>Why Choose Our System?</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>Responsive Design</h3>
+        <p>Optimized for viewing on different platforms and devices. Looks the same on every mobile, laptops, PCs and tablets. A smooth, continuous flow.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-chart-line"></i>
+        <h3>High Accuracy</h3>
+        <p>Great accuracy with reliable prediction rates. Analysis and prediction based on large samples of medical data and machine learning models.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-brain"></i>
+        <h3>ML Powered</h3>
+        <p>Advanced machine learning algorithms analyze your symptoms and predict potential diseases with high confidence and precision.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-lock"></i>
+        <h3>Privacy First</h3>
+        <p>Your health data is processed securely. We don't store personal information and all predictions are done in real-time.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-clock"></i>
+        <h3>Instant Results</h3>
+        <p>Get immediate predictions without waiting. Our system analyzes symptoms and provides results in seconds.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-code"></i>
+        <h3>Open Source</h3>
+        <p>The web page's source code is freely available. See the code, modify and use freely. Transparent and community-driven.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prediction Section -->
+  <section class="prediction-section" id="predict">
+    <h2>Disease Prediction</h2>
+    <div class="prediction-container">
+      <form id="symptomForm">
+        <div class="form-section">
+          <h3><i class="fas fa-list-check"></i>Select Your Symptoms</h3>
+          <div id="symptomsGrid" class="symptoms-grid">
+            <div style="text-align: center; padding: 40px; color: #999;">
+              <i class="fas fa-spinner spinner" style="font-size: 2em;"></i>
+              <p style="margin-top: 15px;">Loading symptoms...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"><span>OR</span></div>
+
+        <div class="form-section">
+          <div class="form-group">
+            <label for="manualSymptoms">
+              <i class="fas fa-keyboard"></i> Enter Symptoms Manually
+            </label>
+            <textarea id="manualSymptoms" rows="5" 
+              placeholder="Type your symptoms separated by commas (e.g., fever, headache, cough, fatigue)"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">
+          <i class="fas fa-search"></i> Predict Disease
+        </button>
+      </form>
+
+      <div id="predictionResult" class="result-box"></div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <i class="fas fa-database"></i>
+        <h3 id="symptomCount">132</h3>
+        <p>Available Symptoms</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-check-circle"></i>
+        <h3 id="selectedCount">0</h3>
+        <p>Selected Symptoms</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-percentage"></i>
+        <h3>95%</h3>
+        <p>Model Accuracy</p>
+      </div>
+    </div>
+  </section>
+
+<section class="contact-section">
+    <h2>Contact Us</h2>
+    <p>Have questions or feedback about our heart disease prediction tool? Get in touch with us!</p>
+
+    <div class="contact-container">
+      <!-- Left side: Message Form -->
+      <div class="contact-form">
+        <h3>Send a Message</h3>
+        <form action="#" method="POST">
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Email Address" required>
+          <textarea placeholder="Type your message here..." rows="5" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+
+      <!-- Right side: Info -->
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <ul>
+          <li><i class="fa-solid fa-envelope"></i> contact@healthpredictai.com</li>
+          <li><i class="fa-solid fa-phone"></i> +1 (123) 456-7890</li>
+          <li><i class="fa-solid fa-location-dot"></i> 123 Health Avenue, Medical District, New York, NY 10001</li>
+        </ul>
+
+        <div class="follow-us">
+          <h3>Follow Us</h3>
+          <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="about">
+    <p>&copy; 2024 Disease Prediction System. All rights reserved.</p>
+    <p style="margin-top: 10px; opacity: 0.8;">
+      <i class="fas fa-exclamation-triangle"></i> 
+      Disclaimer: This is a prediction tool. Always consult healthcare professionals for accurate diagnosis.
+    </p>
+  </footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", async function() {
+  const symptomsGrid = document.getElementById("symptomsGrid");
+  const resultDiv = document.getElementById("predictionResult");
+
+  // Load symptoms
+  try {
+    console.log("[client] requesting /symptoms ...");
+    const response = await fetch("/symptoms");
+    console.log("[client] /symptoms status:", response.status, response.statusText);
+    const data = await response.json();
+    console.log("[client] /symptoms payload:", data);
+
+    if (response.ok && data.symptoms && data.symptoms.length) {
+      symptomsGrid.innerHTML = ""; // Clear loading message
+      data.symptoms.forEach(symptom => {
+        const formGroup = document.createElement("div");
+        formGroup.classList.add("form-group");
+        formGroup.innerHTML = `
+          <label class="symptom-item">
+            <input type="checkbox" name="${symptom}" value="1">
+            ${symptom.replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase())}
+          </label>
+        `;
+        symptomsGrid.appendChild(formGroup);
+      });
+    } else {
+      symptomsGrid.innerHTML = `<div class="status-error">Unable to load symptoms from server: ${data.error || response.statusText}</div>`;
+    }
+  } catch (err) {
+    console.error("[client] error fetching /symptoms:", err);
+    symptomsGrid.innerHTML = `<div class="status-error">Unable to load symptoms from server (network). Open DevTools console for details.</div>`;
+  }
+
+  // Handle form submit
+  document.getElementById("symptomForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    let symptoms = {};
+
+    // Collect selected checkboxes
+    for (let [key, value] of formData.entries()) {
+      if (key !== "manual_symptoms") symptoms[key] = 1;
+    }
+
+    // Collect manual input
+    const manual = formData.get("manual_symptoms");
+    if (manual && manual.trim()) {
+      manual.split(",").map(s => s.trim().toLowerCase().replace(/\s+/g,'_')).forEach(s => { 
+        if (s) symptoms[s] = 1; 
+      });
+    }
+
+    // Show loading
+    resultDiv.className = "result-box loading";
+    resultDiv.innerHTML = `<h4>Analyzing...</h4><p>Please wait while symptoms are being processed.</p>`;
+
+    try {
+      console.log("[client] posting to /predict ->", symptoms);
+      const resp = await fetch("/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(symptoms)
+      });
+      console.log("[client] /predict status:", resp.status, resp.statusText);
+      const payload = await resp.json();
+      console.log("[client] /predict payload:", payload);
+
+      if (resp.ok && payload.prediction) {
+        resultDiv.className = "result-box success";
+        resultDiv.innerHTML = `<h4>Predicted Disease:</h4><p>${payload.prediction}</p>`;
+        localStorage.setItem("prediction", payload.prediction);
+      } else {
+        resultDiv.className = "result-box error";
+        resultDiv.innerHTML = `<h4>Error:</h4><p>${payload.error || resp.statusText}</p>`;
+      }
+    } catch (err) {
+      console.error("[client] error calling /predict:", err);
+      resultDiv.className = "result-box error";
+      resultDiv.innerHTML = `<h4>Connection Error:</h4><p>Check backend console.</p>`;
+    }
+  });
+});
+</script>
+
+</body>
+</html>

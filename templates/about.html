@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Disease Prediction System - About</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #2c3e50;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: static;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav h1 {
+      font-size: 1.5em;
+      color: #e74c3c;
+    }
+
+    nav h1 i {
+      margin-right: 10px;
+    }
+
+    nav .nav-links a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav .nav-links a:hover {
+      color: #e74c3c;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("../static/bg.jpg") center center / cover no-repeat fixed;
+      color: white;
+      padding: 350px 100px;
+      text-align: center;
+    }
+
+    .hero h1, .hero p {
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    }
+
+    .hero h1 {
+      font-size: 4em;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.5em;
+      opacity: 0.9;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #c0392b;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+    }
+
+    .btn-secondary:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* About Section */
+    .about-section {
+      padding: 80px 20px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+      max-width: 1000px;
+      margin: 50px auto;
+      text-align: left;
+    }
+
+    .about-section h2 {
+      font-size: 2.5em;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .about-section p {
+      font-size: 1.1em;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .about-section ul {
+      list-style: disc;
+      padding-left: 40px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: #000000;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2em;
+      }
+
+      .hero p {
+        font-size: 1.2em;
+      }
+
+      nav .container {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav .nav-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      nav .nav-links a {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <h1><i class="fas fa-heartbeat"></i>Disease Prediction System</h1>
+      <div class="nav-links">
+            <a href="{{ url_for('home') }}" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+  <i class="fas fa-home"></i> Home
+</a>
+<a href="{{ url_for('dashboard') }}" 
+   class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+  <i class="fas fa-tachometer-alt"></i> Dashboard
+</a>
+<a href="{{ url_for('about') }}" class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
+  <i class="fas fa-info-circle"></i> About
+</a>
+<a href="{{ url_for('results') }}" class="nav-item {% if request.endpoint == 'results' %}active{% endif %}">
+  <i class="fas fa-chart-line"></i> Results
+</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>About Our Project</h1>
+    <p>Learn more about the Disease Prediction System and how it helps users make informed health decisions</p>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section" id="about">
+    <h2>Project Overview</h2>
+    <p>The Disease Prediction System is an AI-powered web application designed to help users assess potential health risks based on symptoms. The system leverages machine learning algorithms trained on large medical datasets to provide accurate predictions quickly.</p>
+
+    <h2>Key Features</h2>
+    <ul>
+      <li><strong>Symptom-based Prediction:</strong> Users can select symptoms from a predefined list or manually input them for personalized disease predictions.</li>
+      <li><strong>Real-time Analysis:</strong> Predictions are processed instantly without storing personal data, ensuring both speed and privacy.</li>
+      <li><strong>High Accuracy:</strong> The system utilizes advanced ML models to achieve high prediction reliability.</li>
+      <li><strong>User-friendly Interface:</strong> Designed to be intuitive and responsive across devices, ensuring a seamless experience on desktops, tablets, and mobiles.</li>
+      <li><strong>Open Source:</strong> The source code is freely available, promoting transparency and community contributions.</li>
+    </ul>
+
+    <h2>Technology Stack</h2>
+    <ul>
+      <li>Frontend: HTML, CSS, JavaScript, Font Awesome</li>
+      <li>Backend: Flask (Python)</li>
+      <li>Machine Learning: Python (Scikit-learn, Pandas, NumPy)</li>
+      <li>Data Handling: JSON for symptom input/output</li>
+      <li>Deployment: Local server or cloud hosting</li>
+    </ul>
+
+    <h2>How It Works</h2>
+    <p>Users select or enter symptoms into the web interface. The system then sends this information to the backend, where a trained ML model evaluates the data and returns the most probable disease(s). Results are displayed in an easy-to-understand format, highlighting the predicted disease and additional information for guidance.</p>
+
+    <h2>Disclaimer</h2>
+    <p>This system is intended for educational and informational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Users are strongly advised to consult healthcare professionals for any health concerns.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Disease Prediction System. All rights reserved.</p>
+    <p style="margin-top: 10px; opacity: 0.8;">
+      <i class="fas fa-exclamation-triangle"></i> 
+      Disclaimer: Always consult healthcare professionals for accurate diagnosis.
+    </p>
+  </footer>
+</body>
+</html>

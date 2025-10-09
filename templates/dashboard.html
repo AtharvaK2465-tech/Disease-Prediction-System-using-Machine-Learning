@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Disease Prediction System - Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #2c3e50;
+      color: #333;
+      line-height: 1.6;
+    }
+
+.contact-section {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.contact-section h2 {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.contact-section p {
+  color: white;
+  margin-bottom: 40px;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contact-form,
+.contact-info {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  width: 400px;
+}
+
+.contact-form h3,
+.contact-info h3 {
+  color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  outline: none;
+  font-size: 15px;
+}
+
+.contact-form button {
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.contact-form button:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.contact-info ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.contact-info li {
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.contact-info i {
+  color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin-right: 10px;
+}
+
+.follow-us {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.social-icons a {
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: inline-block;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+    /* Navigation */
+    nav {
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: static;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav h1 {
+      font-size: 1.5em;
+      color: #e74c3c;
+    }
+
+    nav h1 i {
+      margin-right: 10px;
+    }
+
+    nav .nav-links a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav .nav-links a:hover {
+      color: #e74c3c;
+    }
+
+    /* Hero Section */
+.hero {
+  background: 
+    linear-gradient(rgba(242, 239, 239, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../static/bg.jpg") center center / cover no-repeat fixed;
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+}
+.hero {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  padding: 350px 100px;
+  text-align: center;
+}
+
+
+    .hero h1 {
+      font-size: 5em;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.3em;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+
+.hero h1, .hero p {
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #c0392b;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+    }
+
+    .btn-secondary:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Feature Cards */
+    .features {
+      padding: 80px 20px;
+      background: white;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 60px;
+      color: #333;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    .feature-card i {
+      font-size: 3em;
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .feature-card p {
+      color: #666;
+      line-height: 1.8;
+    }
+
+    /* Prediction Section */
+    .prediction-section {
+      padding: 80px 20px;
+      background: #2c3e50;
+    }
+
+    .prediction-section h2 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 50px;
+      color: #ffffff;
+    }
+
+    .prediction-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+      padding: 50px;
+    }
+
+    .form-section h3 {
+      color: #667eea;
+      margin-bottom: 25px;
+      font-size: 1.5em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .symptoms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+      max-height: 350px;
+      overflow-y: auto;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+
+    .symptom-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .symptom-item:hover {
+      background: #e8f4f8;
+    }
+
+    .symptom-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-right: 10px;
+      cursor: pointer;
+      accent-color: #667eea;
+    }
+
+    .symptom-item label {
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 40px 0;
+      color: #999;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .divider span {
+      padding: 0 20px;
+      font-weight: 600;
+      font-size: 1.1em;
+    }
+
+    .form-group {
+      margin-bottom: 30px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      color: #555;
+      font-weight: 600;
+      font-size: 1.1em;
+    }
+
+    .form-group textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1em;
+      font-family: inherit;
+      transition: border-color 0.3s;
+      resize: vertical;
+    }
+
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .result-box {
+      margin-top: 30px;
+      padding: 30px;
+      border-radius: 10px;
+      display: none;
+      animation: slideIn 0.5s;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-box.success {
+      background: #d4edda;
+      border-left: 5px solid #28a745;
+      color: #155724;
+      display: block;
+    }
+
+    .result-box.error {
+      background: #f8d7da;
+      border-left: 5px solid #dc3545;
+      color: #721c24;
+      display: block;
+    }
+
+    .result-box.loading {
+      background: #fff3cd;
+      border-left: 5px solid #ffc107;
+      color: #856404;
+      display: block;
+    }
+
+    .result-box h4 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      padding: 80px 20px;
+      background: white;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .stat-card i {
+      font-size: 3.5em;
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+
+    .stat-card h3 {
+      font-size: 2.5em;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .stat-card p {
+      color: #666;
+      font-size: 1.1em;
+    }
+
+    /* Footer */
+    footer {
+      background: #000000;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+    .header h1, .header .breadcrumb {
+      color: white;
+    }
+
+    .spinner {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2em;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .prediction-container {
+        padding: 30px 20px;
+      }
+
+      nav .container {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav .nav-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      nav .nav-links a {
+        margin-left: 0;
+      }
+    }
+  </style>
+<body> <!-- if you have sidebar as separate file, else keep same markup -->
+  <nav>
+    <div class="container">
+      <h1><i class="fas fa-heartbeat"></i>Disease Prediction System</h1>
+      <div class="nav-links">
+            <a href="{{ url_for('home') }}" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+  <i class="fas fa-home"></i> Home
+</a>
+<a href="{{ url_for('dashboard') }}" 
+   class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+  <i class="fas fa-tachometer-alt"></i> Dashboard
+</a>
+<a href="{{ url_for('about') }}" class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
+  <i class="fas fa-info-circle"></i> About
+</a>
+<a href="{{ url_for('results') }}" class="nav-item {% if request.endpoint == 'results' %}active{% endif %}">
+  <i class="fas fa-chart-line"></i> Results
+</a>
+      </div>
+    </div>
+  </nav>
+  <div class="main-content">
+    <header class="header">
+      <h1>Disease Prediction Dashboard</h1>
+      <p class="breadcrumb">Home &gt; Dashboard</p>
+    </header>
+
+    <main>
+      <div class="content-card fade-in">
+        <iframe src="http://127.0.0.1:8501"
+                style="width:100%; height:900px; border:none; border-radius:10px;">
+        </iframe>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
