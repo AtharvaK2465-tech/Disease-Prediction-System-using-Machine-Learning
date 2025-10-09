@@ -121,15 +121,18 @@
     }
 
     /* About Section */
-    .about-section {
-      padding: 80px 20px;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 5px 30px rgba(0,0,0,0.1);
-      max-width: 1000px;
-      margin: 50px auto;
-      text-align: left;
-    }
+    /* About Section */
+.about-section {
+  padding: 80px 40px; /* increased horizontal padding for spacing */
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+  max-width: 1400px; /* increased max-width */
+  width: 90%;         /* allow it to use more screen width */
+  margin: 50px auto;
+  text-align: center;
+}
+
 
     .about-section h2 {
       font-size: 2.5em;
@@ -138,18 +141,28 @@
       text-align: center;
     }
 
-    .about-section p {
-      font-size: 1.1em;
-      line-height: 1.8;
-      margin-bottom: 20px;
-      color: #555;
+    .about-section h3 {
+      font-size: 1.6em;
+      margin-top: 25px;
+      color: #e74c3c;
+      text-align: center;
     }
 
-    .about-section ul {
-      list-style: disc;
-      padding-left: 40px;
-      color: #555;
-      margin-bottom: 20px;
+.about-section p, .about-section ul {
+  font-size: 1.1em;
+  line-height: 1.8;
+  color: #555;
+  max-width: 1200px; /* optional: keeps very long lines readable */
+  margin: 0 auto 20px auto;
+  text-align: center;
+}
+
+    .technical {
+      background-color: #eef6f1;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 5px solid #4CAF50;
+      margin-top: 20px;
     }
 
     /* Footer */
@@ -191,19 +204,10 @@
     <div class="container">
       <h1><i class="fas fa-heartbeat"></i>Disease Prediction System</h1>
       <div class="nav-links">
-            <a href="{{ url_for('home') }}" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
-  <i class="fas fa-home"></i> Home
-</a>
-<a href="{{ url_for('dashboard') }}" 
-   class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
-  <i class="fas fa-tachometer-alt"></i> Dashboard
-</a>
-<a href="{{ url_for('about') }}" class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
-  <i class="fas fa-info-circle"></i> About
-</a>
-<a href="{{ url_for('results') }}" class="nav-item {% if request.endpoint == 'results' %}active{% endif %}">
-  <i class="fas fa-chart-line"></i> Results
-</a>
+        <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a>
+        <a href="{{ url_for('dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="{{ url_for('about') }}"><i class="fas fa-info-circle"></i> About</a>
+        <a href="{{ url_for('results') }}"><i class="fas fa-chart-line"></i> Results</a>
       </div>
     </div>
   </nav>
@@ -219,13 +223,19 @@
     <h2>Project Overview</h2>
     <p>The Disease Prediction System is an AI-powered web application designed to help users assess potential health risks based on symptoms. The system leverages machine learning algorithms trained on large medical datasets to provide accurate predictions quickly.</p>
 
+    <h2>Our Vision</h2>
+    <p>Our vision is to bridge the gap between healthcare and technology by providing an intelligent platform that helps users detect potential health conditions at an early stage, empowering timely intervention and informed decisions.</p>
+
+    <h2>Who We Are</h2>
+    <p>We are a team of developers, data scientists, and healthcare enthusiasts dedicated to building innovative solutions. Our expertise spans <strong>machine learning, data analytics, and medical research</strong>, enabling us to deliver accurate and reliable predictions.</p>
+
     <h2>Key Features</h2>
     <ul>
-      <li><strong>Symptom-based Prediction:</strong> Users can select symptoms from a predefined list or manually input them for personalized disease predictions.</li>
-      <li><strong>Real-time Analysis:</strong> Predictions are processed instantly without storing personal data, ensuring both speed and privacy.</li>
-      <li><strong>High Accuracy:</strong> The system utilizes advanced ML models to achieve high prediction reliability.</li>
-      <li><strong>User-friendly Interface:</strong> Designed to be intuitive and responsive across devices, ensuring a seamless experience on desktops, tablets, and mobiles.</li>
-      <li><strong>Open Source:</strong> The source code is freely available, promoting transparency and community contributions.</li>
+      <li>Symptom-based Prediction with a predefined list or manual input</li>
+      <li>Real-time Analysis for instant predictions while maintaining privacy</li>
+      <li>High Accuracy using advanced ML models</li>
+      <li>User-friendly Interface across devices</li>
+      <li>Open Source for transparency and community collaboration</li>
     </ul>
 
     <h2>Technology Stack</h2>
@@ -238,7 +248,57 @@
     </ul>
 
     <h2>How It Works</h2>
-    <p>Users select or enter symptoms into the web interface. The system then sends this information to the backend, where a trained ML model evaluates the data and returns the most probable disease(s). Results are displayed in an easy-to-understand format, highlighting the predicted disease and additional information for guidance.</p>
+    <p>Users select or enter symptoms into the web interface. The backend evaluates the data using trained ML models and returns the most probable disease(s), along with relevant guidance.</p>
+
+    <div class="technical">
+      <h2>Technical Overview</h2>
+      <h3>Machine Learning & AI</h3>
+      <ul>
+        <li>Data Preprocessing: Cleaning, normalization, and feature extraction</li>
+        <li>Feature Engineering: Identifying symptom-disease correlations</li>
+        <li>Predictive Modeling:
+          <ul>
+            <li>Classification Models: Logistic Regression, Random Forest, XGBoost</li>
+            <li>Deep Learning Models: Feedforward Neural Networks, CNNs</li>
+            <li>Ensemble Techniques: Combining models for better accuracy</li>
+          </ul>
+        </li>
+        <li>Explainable AI: Feature importance analysis for transparency</li>
+      </ul>
+
+      <h3>Data Sources</h3>
+      <ul>
+        <li>Public symptom-disease datasets</li>
+        <li>Peer-reviewed clinical studies</li>
+        <li>Anonymized user-contributed data (privacy compliant)</li>
+      </ul>
+
+      <h3>System Architecture</h3>
+      <ul>
+        <li>Frontend: HTML, CSS, JavaScript</li>
+        <li>Backend: Flask API</li>
+        <li>Model Server: Python ML libraries (scikit-learn, TensorFlow, PyTorch)</li>
+        <li>Database: SQL/NoSQL storage</li>
+        <li>Security: Data encryption and privacy protocols</li>
+      </ul>
+
+      <h3>Key Technical Features</h3>
+      <ul>
+        <li>Real-time symptom analysis</li>
+        <li>Multi-disease prediction</li>
+        <li>Continuous learning with model updates</li>
+        <li>Integration-ready for IoT devices and EHR systems</li>
+        <li>Predictive dashboards for healthcare professionals</li>
+      </ul>
+
+      <h3>Future Enhancements</h3>
+      <ul>
+        <li>Graph Neural Networks for complex symptom-disease relationships</li>
+        <li>NLP for natural language symptom input</li>
+        <li>Cloud-based scalable APIs</li>
+        <li>Mobile applications for on-the-go predictions</li>
+      </ul>
+    </div>
 
     <h2>Disclaimer</h2>
     <p>This system is intended for educational and informational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Users are strongly advised to consult healthcare professionals for any health concerns.</p>
