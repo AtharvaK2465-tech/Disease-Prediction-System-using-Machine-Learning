@@ -737,17 +737,31 @@
 document.addEventListener("DOMContentLoaded", async function() {
   const symptomsGrid = document.getElementById("symptomsGrid");
   const resultDiv = document.getElementById("predictionResult");
+  const selectedCountEl = document.getElementById("selectedCount");
+  const manualInput = document.getElementById("manualSymptoms");
+
+  // Function to update selected count
+  function updateSelectedCount() {
+    let count = 0;
+    // Count checked checkboxes
+    symptomsGrid.querySelectorAll("input[type='checkbox']").forEach(cb => {
+      if (cb.checked) count++;
+    });
+    // Count manual symptoms (split by comma)
+    if (manualInput.value.trim()) {
+      const manualCount = manualInput.value.split(",").filter(s => s.trim()).length;
+      count += manualCount;
+    }
+    selectedCountEl.textContent = count;
+  }
 
   // Load symptoms
   try {
-    console.log("[client] requesting /symptoms ...");
     const response = await fetch("/symptoms");
-    console.log("[client] /symptoms status:", response.status, response.statusText);
     const data = await response.json();
-    console.log("[client] /symptoms payload:", data);
 
     if (response.ok && data.symptoms && data.symptoms.length) {
-      symptomsGrid.innerHTML = ""; // Clear loading message
+      symptomsGrid.innerHTML = "";
       data.symptoms.forEach(symptom => {
         const formGroup = document.createElement("div");
         formGroup.classList.add("form-group");
@@ -759,13 +773,18 @@ document.addEventListener("DOMContentLoaded", async function() {
         `;
         symptomsGrid.appendChild(formGroup);
       });
-    } else {
-      symptomsGrid.innerHTML = `<div class="status-error">Unable to load symptoms from server: ${data.error || response.statusText}</div>`;
+
+      // Add change event listeners to checkboxes
+      symptomsGrid.querySelectorAll("input[type='checkbox']").forEach(cb => {
+        cb.addEventListener("change", updateSelectedCount);
+      });
     }
   } catch (err) {
-    console.error("[client] error fetching /symptoms:", err);
-    symptomsGrid.innerHTML = `<div class="status-error">Unable to load symptoms from server (network). Open DevTools console for details.</div>`;
+    symptomsGrid.innerHTML = `<div class="status-error">Unable to load symptoms from server.</div>`;
   }
+
+  // Update count when manual input changes
+  manualInput.addEventListener("input", updateSelectedCount);
 
   // Handle form submit
   document.getElementById("symptomForm").addEventListener("submit", async function(e) {
@@ -792,15 +811,12 @@ document.addEventListener("DOMContentLoaded", async function() {
     resultDiv.innerHTML = `<h4>Analyzing...</h4><p>Please wait while symptoms are being processed.</p>`;
 
     try {
-      console.log("[client] posting to /predict ->", symptoms);
       const resp = await fetch("/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(symptoms)
       });
-      console.log("[client] /predict status:", resp.status, resp.statusText);
       const payload = await resp.json();
-      console.log("[client] /predict payload:", payload);
 
       if (resp.ok && payload.prediction) {
         resultDiv.className = "result-box success";
@@ -811,12 +827,12 @@ document.addEventListener("DOMContentLoaded", async function() {
         resultDiv.innerHTML = `<h4>Error:</h4><p>${payload.error || resp.statusText}</p>`;
       }
     } catch (err) {
-      console.error("[client] error calling /predict:", err);
       resultDiv.className = "result-box error";
       resultDiv.innerHTML = `<h4>Connection Error:</h4><p>Check backend console.</p>`;
     }
   });
 });
+
 </script>
 
 </body>
