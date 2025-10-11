@@ -216,6 +216,11 @@ def contact():
 
     return redirect(url_for("home"))
 
+@app.route('/report')
+def report():
+    return render_template('report.html')
+
+
 if __name__ == "__main__":
     # run on 0.0.0.0 so `localhost` and ip addresses work; debug=True for tracebacks
     app.run(host="0.0.0.0", port=5000, debug=True)

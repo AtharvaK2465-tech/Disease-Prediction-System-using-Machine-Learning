@@ -301,133 +301,141 @@
     </p>
   </footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", async function() {
-  const symptomsGrid = document.getElementById("symptomsGrid");
-  const resultDiv = document.getElementById("predictionResult");
-  const selectedCountEl = document.getElementById("selectedCount");
-  const manualInput = document.getElementById("manualSymptoms");
-
-  // Function to update selected count
-  function updateSelectedCount() {
-    let count = 0;
-    // Count checked checkboxes
-    symptomsGrid.querySelectorAll("input[type='checkbox']").forEach(cb => {
-      if (cb.checked) count++;
-    });
-    // Count manual symptoms (split by comma)
-    if (manualInput.value.trim()) {
-      const manualCount = manualInput.value.split(",").filter(s => s.trim()).length;
-      count += manualCount;
-    }
-    selectedCountEl.textContent = count;
-  }
-
-  // Load symptoms
-  try {
-    const response = await fetch("/symptoms");
-    const data = await response.json();
-
-    if (response.ok && data.symptoms && data.symptoms.length) {
-      symptomsGrid.innerHTML = "";
-      data.symptoms.forEach(symptom => {
-        const formGroup = document.createElement("div");
-        formGroup.classList.add("form-group");
-        formGroup.innerHTML = `
-          <label class="symptom-item">
-            <input type="checkbox" name="${symptom}" value="1">
-            ${symptom.replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase())}
-          </label>
-        `;
-        symptomsGrid.appendChild(formGroup);
-      });
-
-      // Add change event listeners to checkboxes
-      symptomsGrid.querySelectorAll("input[type='checkbox']").forEach(cb => {
-        cb.addEventListener("change", updateSelectedCount);
-      });
-    }
-  } catch (err) {
-    symptomsGrid.innerHTML = `<div class="status-error">Unable to load symptoms from server.</div>`;
-  }
-
-  // Update count when manual input changes
-  manualInput.addEventListener("input", updateSelectedCount);
-
-  // Handle form submit
-  document.getElementById("symptomForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-    let symptoms = {};
-
-    // Collect selected checkboxes
-    for (let [key, value] of formData.entries()) {
-      if (key !== "manual_symptoms") symptoms[key] = 1;
-    }
-
-    // Collect manual input
-    const manual = formData.get("manual_symptoms");
-    if (manual && manual.trim()) {
-      manual.split(",").map(s => s.trim().toLowerCase().replace(/\s+/g,'_')).forEach(s => { 
-        if (s) symptoms[s] = 1; 
-      });
-    }
-
-    // Show loading
-    resultDiv.className = "result-box loading";
-    resultDiv.innerHTML = `<h4>Analyzing...</h4><p>Please wait while symptoms are being processed.</p>`;
-
-    try {
-      const resp = await fetch("/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(symptoms)
-      });
-      const payload = await resp.json();
-
-      if (resp.ok && payload.prediction) {
-        resultDiv.className = "result-box success";
-        resultDiv.innerHTML = `<h4>Predicted Disease:</h4><p>${payload.prediction}</p>`;
-        localStorage.setItem("prediction", payload.prediction);
-      } else {
-        resultDiv.className = "result-box error";
-        resultDiv.innerHTML = `<h4>Error:</h4><p>${payload.error || resp.statusText}</p>`;
+  <script>
+    document.addEventListener("DOMContentLoaded", async function() {
+      const symptomsGrid = document.getElementById("symptomsGrid");
+      const resultDiv = document.getElementById("predictionResult");
+      const selectedCountEl = document.getElementById("selectedCount");
+      const manualInput = document.getElementById("manualSymptoms");
+    
+      // Function to update selected count
+      function updateSelectedCount() {
+        let count = 0;
+        symptomsGrid.querySelectorAll("input[type='checkbox']").forEach(cb => {
+          if (cb.checked) count++;
+        });
+        if (manualInput.value.trim()) {
+          const manualCount = manualInput.value.split(",").filter(s => s.trim()).length;
+          count += manualCount;
+        }
+        selectedCountEl.textContent = count;
       }
-    } catch (err) {
-      resultDiv.className = "result-box error";
-      resultDiv.innerHTML = `<h4>Connection Error:</h4><p>Check backend console.</p>`;
-    }
-  });
-});
-document.getElementById("contactForm").addEventListener("submit", async function(e){
-  e.preventDefault();
+    
+      // Load symptoms from backend
+      try {
+        const response = await fetch("/symptoms");
+        const data = await response.json();
+    
+        if (response.ok && data.symptoms && data.symptoms.length) {
+          symptomsGrid.innerHTML = "";
+          data.symptoms.forEach(symptom => {
+            const formGroup = document.createElement("div");
+            formGroup.classList.add("form-group");
+            formGroup.innerHTML = `
+              <label class="symptom-item">
+                <input type="checkbox" name="${symptom}" value="1">
+                ${symptom.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
+              </label>
+            `;
+            symptomsGrid.appendChild(formGroup);
+          });
+    
+          // Add change listeners
+          symptomsGrid.querySelectorAll("input[type='checkbox']").forEach(cb => {
+            cb.addEventListener("change", updateSelectedCount);
+          });
+        }
+      } catch (err) {
+        symptomsGrid.innerHTML = `<div class="status-error">Unable to load symptoms from server.</div>`;
+      }
+    
+      // Update count for manual input
+      manualInput.addEventListener("input", updateSelectedCount);
+    
+      // Handle form submit (prediction)
+      document.getElementById("symptomForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+    
+        const formData = new FormData(e.target);
+        let symptoms = {};
+    
+        // Collect selected checkboxes
+        for (let [key, value] of formData.entries()) {
+          if (key !== "manual_symptoms") symptoms[key] = 1;
+        }
+    
+        // Collect manual input
+        const manual = formData.get("manual_symptoms");
+        if (manual && manual.trim()) {
+          manual.split(",").map(s => s.trim().toLowerCase().replace(/\s+/g, '_')).forEach(s => {
+            if (s) symptoms[s] = 1;
+          });
+        }
+    
+        // Show loading state
+        resultDiv.className = "result-box loading";
+        resultDiv.innerHTML = `<h4>Analyzing...</h4><p>Please wait while symptoms are being processed.</p>`;
+    
+        try {
+          const resp = await fetch("/predict", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(symptoms)
+          });
+          const payload = await resp.json();
+    
+          if (resp.ok && payload.prediction) {
+            resultDiv.className = "result-box success";
+            resultDiv.innerHTML = `
+              <h4>Predicted Disease:</h4>
+              <p>${payload.prediction}</p>
+              <a href="/results" 
+                 style="color: #e74c3c; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">
+                 Results &raquo;
+              </a>
+            `;
+            localStorage.setItem("prediction", payload.prediction);
+            localStorage.setItem("symptoms", JSON.stringify(Object.keys(symptoms)));
 
-  const formData = new FormData(this);
-  const responseDiv = document.getElementById("contactResponse");
-  responseDiv.textContent = "Sending message...";
-
-  const res = await fetch("/contact", {
-    method: "POST",
-    body: formData
-  });
-
-  if (res.ok) {
-    responseDiv.textContent = "Message sent successfully!";
-    this.reset();
-  } else {
-    responseDiv.textContent = "Something went wrong. Try again later.";
-  }
-});
-
-document.getElementById("contactLink").addEventListener("click", function(event) {
-  event.preventDefault(); // stop default jump
-  document.querySelector("#contact").scrollIntoView({
-    behavior: "smooth"
-  });
-});
-
-</script>
-
+          } else {
+            resultDiv.className = "result-box error";
+            resultDiv.innerHTML = `<h4>Error:</h4><p>${payload.error || resp.statusText}</p>`;
+          }
+        } catch (err) {
+          resultDiv.className = "result-box error";
+          resultDiv.innerHTML = `<h4>Connection Error:</h4><p>Check backend console.</p>`;
+        }
+      });
+    });
+    
+    // Contact form handler
+    document.getElementById("contactForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+    
+      const formData = new FormData(this);
+      const responseDiv = document.getElementById("contactResponse");
+      responseDiv.textContent = "Sending message...";
+    
+      const res = await fetch("/contact", {
+        method: "POST",
+        body: formData
+      });
+    
+      if (res.ok) {
+        responseDiv.textContent = "Message sent successfully!";
+        this.reset();
+      } else {
+        responseDiv.textContent = "Something went wrong. Try again later.";
+      }
+    });
+    
+    // Smooth scroll for contact link
+    document.getElementById("contactLink").addEventListener("click", function(event) {
+      event.preventDefault();
+      document.querySelector("#contact").scrollIntoView({
+        behavior: "smooth"
+      });
+    });
+    </script>
 </body>
 </html> 
