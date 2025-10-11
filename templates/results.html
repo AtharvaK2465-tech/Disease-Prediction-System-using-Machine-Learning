@@ -49,7 +49,7 @@
     nav .nav-links a:hover { color: #e74c3c; }
 
     .hero {
-      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("../static/bg.jpg") center center / cover no-repeat fixed;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("../static/bg3.jpg") center center / cover no-repeat fixed;
       color: white;
       padding: 300px 100px;
       text-align: center;
@@ -152,12 +152,12 @@
             <a href="{{ url_for('home') }}" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
   <i class="fas fa-home"></i> Home
 </a>
+<a href="{{ url_for('about') }}" class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
+  <i class="fas fa-info-circle"></i> About
+</a>
 <a href="{{ url_for('dashboard') }}" 
    class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
   <i class="fas fa-tachometer-alt"></i> Dashboard
-</a>
-<a href="{{ url_for('about') }}" class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
-  <i class="fas fa-info-circle"></i> About
 </a>
 <a href="{{ url_for('results') }}" class="nav-item {% if request.endpoint == 'results' %}active{% endif %}">
   <i class="fas fa-chart-line"></i> Results
@@ -183,7 +183,7 @@
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2024 Disease Prediction System. All rights reserved.</p>
+    <p>&copy; 2025 Disease Prediction System. All rights reserved.</p>
     <p style="margin-top: 10px; opacity: 0.8;">
       <i class="fas fa-exclamation-triangle"></i> 
       Disclaimer: Always consult healthcare professionals for accurate diagnosis.

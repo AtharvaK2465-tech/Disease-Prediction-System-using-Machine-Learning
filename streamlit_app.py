@@ -17,7 +17,7 @@ with st.sidebar:
     st.header("About")
     st.info("This dashboard uses **Streamlit** + **Flask API** for ML-based disease prediction.")
     st.markdown("---")
-    st.markdown("Developed by **G10 Team**")
+    st.markdown("Developed by **Group E**")
 
 # Fetch symptoms from Flask
 try:
@@ -90,8 +90,8 @@ with col2:
 with col3:
     st.markdown("""
     <div style="background-color:#f8f9fa; padding:20px; border-radius:10px; box-shadow:2px 2px 8px #ddd;">
-    <h4 style="color:#E67E22;">💧 Hydration</h4>
-    <p>Drink 8–10 glasses of water each day to stay hydrated.</p>
+    <h4 style="color:#F39C12;">🧘 Mental Health</h4>
+    <p>Practice meditation, journaling, or hobbies to maintain peace of mind.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -116,7 +116,7 @@ with col5:
 with col6:
     st.markdown("""
     <div style="background-color:#f8f9fa; padding:20px; border-radius:10px; box-shadow:2px 2px 8px #ddd;">
-    <h4 style="color:#F39C12;">🧘 Mental Health</h4>
-    <p>Practice meditation, journaling, or hobbies to maintain peace of mind.</p>
+    <h4 style="color:#E67E22;">💧 Hydration</h4>
+    <p>Drink 8–10 glasses of water each day to stay hydrated.</p>
     </div>
     """, unsafe_allow_html=True)
